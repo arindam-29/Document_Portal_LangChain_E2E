@@ -1,8 +1,11 @@
 ipykernel
-langchain_groq
-langchain_openai
-langchain_google_genai
-langchain_community
-pypdf
+python-dotenv
+langchain
+langchain-openai
+langchain-groq
+langchain-core
+langchain-community
+langchain-google-genai
 faiss-cpu
+pypdf
 -e .
