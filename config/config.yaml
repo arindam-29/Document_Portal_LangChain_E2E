@@ -1,0 +1,33 @@
+faiss_db:
+  collection_name: "document_portal"
+
+retriever:
+  top_k: 10
+
+embedding_model:
+  Google:
+    provider: "google"
+    model_name: "model/text-embedding-004"
+
+  HuggingFace:
+    provider: "huggingface"
+    model_name: "xxxxxx"
+
+llm:
+  Groq:
+    provider: "groq"
+    model_name: "deepseek-r1-distill-llama-70b"
+    temperature: 0
+    max_output_tokens: 2048
+  
+  Google:
+    provider: "google"
+    model_name: "gemini-2.0-flash"
+    temperature: 0
+    max_output_tokens: 2048
+
+  OpenAI:
+    provider: "OpenAI"
+    model_name: "gpt-4o"
+    temperature: 0
+    max_output_tokens: 2048
