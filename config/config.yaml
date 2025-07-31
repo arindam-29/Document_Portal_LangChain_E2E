@@ -5,29 +5,25 @@ retriever:
   top_k: 10
 
 embedding_model:
-  Google:
+  google:
     provider: "google"
-    model_name: "model/text-embedding-004"
-
-  HuggingFace:
-    provider: "huggingface"
-    model_name: "xxxxxx"
+    model_name: "models/text-embedding-004"
 
 llm:
-  Groq:
+  groq:
     provider: "groq"
     model_name: "deepseek-r1-distill-llama-70b"
     temperature: 0
     max_output_tokens: 2048
-  
-  Google:
+
+  google:
     provider: "google"
     model_name: "gemini-2.0-flash"
     temperature: 0
     max_output_tokens: 2048
 
-  OpenAI:
-    provider: "OpenAI"
+  openai:
+    provider: "openai"
     model_name: "gpt-4o"
     temperature: 0
     max_output_tokens: 2048

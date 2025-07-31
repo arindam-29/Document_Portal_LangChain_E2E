@@ -1,6 +1,6 @@
 import sys
 import traceback
-from logger.cutom_logger import CustomLogger
+from logger.custom_logger import CustomLogger
 
 # Initialize custom logger and pass the file name:
 logger=CustomLogger().get_logger(__file__) 
