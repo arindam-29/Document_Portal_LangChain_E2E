@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Agentic-AI-Document-Portal-Using-LangChain"
+version = "1.0"
+authors = [
+    { name="Arindam Choudhury" }
+]
+description = "Agentic AI Document Portal Using LangChain"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["."]
