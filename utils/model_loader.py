@@ -4,11 +4,12 @@ from dotenv import load_dotenv
 
 from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 from langchain_groq import ChatGroq
-from langchain_openai import ChatOpenAI
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
 from logger.custom_logger import CustomLogger
 from exception.custom_exception import DocumentPortalException
 from utils.config_loader import load_config
+from config.constants import EMBEDDING_MODEL, LLM_MODEL #Model Selection
 
 log = CustomLogger().get_logger(__name__)
 
@@ -42,14 +43,31 @@ class ModelLoader:
         """
         Load Embedding Models.
         """
+        embed_block = self.config["embedding_model"]
+        log.info("Loading Embedding Model...")
+
+        if EMBEDDING_MODEL not in embed_block:
+            log.error(f"Embedding Model '{EMBEDDING_MODEL}' details found in config file!", provider_key=EMBEDDING_MODEL)
+            raise ValueError(f"Embedding Model '{EMBEDDING_MODEL}' details found in config file!")
+
+        embed_config = embed_block[EMBEDDING_MODEL]
+        provider = embed_config.get("provider")
+        model_name = embed_config.get("model_name")
+
+        log.info("Embedding model to be loaded", provider=provider, model=model_name)
 
         try:
-            model_name = self.config["embedding_model"]["google"]["model_name"]
-            return GoogleGenerativeAIEmbeddings(model=model_name)
+            if provider == "google":
+                return GoogleGenerativeAIEmbeddings(model=model_name)
+            elif provider == "openai":
+                return OpenAIEmbeddings(model=model_name)
+            else:
+                log.error("Unsupported Embedding Model provider", provider=provider)
+                raise ValueError(f"Unsupported Embedding Model provider: {provider}")
         
         except Exception as e:
-            log.error("Error in loading Embedding Model! ", error=str(e))
-            raise DocumentPortalException("Error in loading Embedding Model! ", sys)
+            log.error(f"Error in loading Embedding Model '{provider}'! ", error=str(e))
+            raise DocumentPortalException(f"Error in loading Embedding Model '{provider}'! ", sys)
 
     def load_llms(self):
         """
@@ -58,20 +76,19 @@ class ModelLoader:
 
         llm_block = self.config["llm"]
 
-        log.info("Loading LLM...")
+        log.info("Loading LLM Model...")
         
-        provider_key = os.getenv("LLM_PROVIDER", "groq")  # Default groq
-        if provider_key not in llm_block:
-            log.error("LLM provider not found in config", provider_key=provider_key)
-            raise ValueError(f"Provider '{provider_key}' not found in config")
+        if LLM_MODEL not in llm_block:
+            log.error(f"LLM Model '{LLM_MODEL}' details found in config file!", provider_key=LLM_MODEL)
+            raise ValueError(f"LLM Model '{LLM_MODEL}' details found in config file!")
 
-        llm_config = llm_block[provider_key]
+        llm_config = llm_block[LLM_MODEL]
         provider = llm_config.get("provider")
         model_name = llm_config.get("model_name")
         temperature = llm_config.get("temperature", 0.2)
         max_tokens = llm_config.get("max_output_tokens", 2048)
         
-        log.info("Loading LLM", provider=provider, model=model_name, temperature=temperature, max_tokens=max_tokens)
+        log.info("LLM to be loaded", provider=provider, model=model_name, temperature=temperature, max_tokens=max_tokens)
 
         if provider == "google":
             llm=ChatGoogleGenerativeAI(
@@ -89,13 +106,13 @@ class ModelLoader:
             )
             return llm
             
-        # elif provider == "openai":
-        #     return ChatOpenAI(
-        #         model=model_name,
-        #         api_key=self.api_keys["OPENAI_API_KEY"],
-        #         temperature=temperature,
-        #         max_tokens=max_tokens
-        #     )
+        elif provider == "openai":
+            return ChatOpenAI(
+                model=model_name,
+                api_key=self.api_keys["OPENAI_API_KEY"],
+                temperature=temperature,
+                max_tokens=max_tokens
+            )
         else:
             log.error("Unsupported LLM provider", provider=provider)
             raise ValueError(f"Unsupported LLM provider: {provider}")

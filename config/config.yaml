@@ -8,6 +8,10 @@ embedding_model:
   google:
     provider: "google"
     model_name: "models/text-embedding-004"
+  
+  openai:
+    provider: "openai"
+    model_name: "text-embedding-3-large"
 
 llm:
   groq:

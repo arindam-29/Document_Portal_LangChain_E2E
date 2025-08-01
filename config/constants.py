@@ -1,0 +1,2 @@
+EMBEDDING_MODEL="google"
+LLM_MODEL="groq"
