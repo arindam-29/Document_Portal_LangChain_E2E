@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any, Union
 
 
-class Metadata(BaseModel):
+class LLMMetadata(BaseModel):
     Summary: List[str] = Field(default_factory=list, description="Summary of the document")
     Title: str
     Author: str
