@@ -1,3 +1,3 @@
 EMBEDDING_MODEL="google"
-LLM_MODEL="groq"
+LLM_MODEL="google"
 DATA_STORAGE_PATH="data/documents"
