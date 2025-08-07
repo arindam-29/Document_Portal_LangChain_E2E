@@ -36,13 +36,13 @@ class DocumentComparatorLLM:
 
             self.log.info("Invoking document comparison LLM chain")
             response = self.chain.invoke(inputs)
-            self.log.info("Chain invoked successfully", response_preview=str(response)[:200])
+            self.log.info("Chain for document comparison is invoked successfully", response_preview=str(response)[:200])
             return self._format_response(response)
         except Exception as e:
-            self.log.error("Error in compare_documents", error=str(e))
-            raise DocumentPortalException("Error comparing documents", sys)
+            self.log.error("Error in compare documents", error=str(e))
+            raise DocumentPortalException("Error in compare documents", sys)
 
-    def _format_response(self, response_parsed: list[dict]) -> pd.DataFrame: #type: ignore
+    def _format_response(self, response_parsed: list[dict]) -> pd.DataFrame: 
         """
         Formats the response from the LLM into a structured format.
         """
