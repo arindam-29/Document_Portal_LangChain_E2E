@@ -7,14 +7,14 @@ from utils.model_loader import ModelLoader
 from logger.custom_logger import CustomLogger
 from exception.custom_exception import DocumentPortalException
 from prompt.prompt_library import PROMPT_REGISTRY
-from model.models import SummaryResponse,PromptType
+from model.models import SummaryResponse
 
 class DocumentComparatorLLM:
     def __init__(self):
         load_dotenv()
         self.log = CustomLogger().get_logger(__name__)
         self.loader = ModelLoader()
-        self.llm = self.loader.load_llm()
+        self.llm = self.loader.load_llms()
         self.parser = JsonOutputParser(pydantic_object=SummaryResponse)
         self.fixing_parser = OutputFixingParser.from_llm(parser=self.parser, llm=self.llm)
         self.prompt = PROMPT_REGISTRY["document_compare"]
