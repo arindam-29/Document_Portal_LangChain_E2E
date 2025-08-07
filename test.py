@@ -3,7 +3,7 @@
 import os
 from pathlib import Path
 from src.document_analyzer.data_ingestion import DocumentHandler       # Your PDFHandler class
-from src.document_analyzer.data_analysis import DocumentAnalyzer  # Your DocumentAnalyzer class
+from src.document_analyzer.document_analysis import DocumentAnalyzer  # Your DocumentAnalyzer class
 
 # Path to the PDF you want to test
 #PDF_PATH = r"C:\\Users\\sunny\\document_portal\\data\\document_analysis\\sample.pdf"

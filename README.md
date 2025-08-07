@@ -1,5 +1,5 @@
-1. Documents Analysis
-2. Documents Compare
+1. Documents Analysis: Creates a summary and metadata of the uploaded document.
+2. Documents Compare: Compare the content of two documents.
 3. Document(s) Question/Answer
 
 

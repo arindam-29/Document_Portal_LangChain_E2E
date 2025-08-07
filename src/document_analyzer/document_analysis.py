@@ -7,7 +7,7 @@ from model.models import LLMMetadata
 
 from langchain_core.output_parsers import JsonOutputParser
 from langchain.output_parsers import OutputFixingParser
-from prompt.prompt_library import document_analysis_prompt
+from prompt.prompt_library import PROMPT_REGISTRY
 
 class DocumentAnalyzer:
     """
@@ -18,7 +18,7 @@ class DocumentAnalyzer:
         try:
             self.loader = ModelLoader()
             self.llm = self.loader.load_llms()
-            self.prompt = document_analysis_prompt
+            self.prompt = PROMPT_REGISTRY["document_analysis"]
 
             # Initialize the output parser
             self.parser = JsonOutputParser(pydantic_object=LLMMetadata)
