@@ -50,7 +50,7 @@
 #     main()
 
 ## Testing code for document comparison using LLMs
-
+    
 import io
 from pathlib import Path
 from src.document_compare.data_ingestion import DocumentIngestion
@@ -96,7 +96,6 @@ def test_compare_documents():
 
 if __name__ == "__main__":
     test_compare_documents()
-    
     
 
 # Testing code for document chat functionality

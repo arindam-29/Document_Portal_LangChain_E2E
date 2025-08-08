@@ -2,9 +2,6 @@ import sys
 import traceback
 from logger.custom_logger import CustomLogger
 
-# Initialize custom logger and pass the file name:
-logger=CustomLogger().get_logger(__file__) 
-
 # Define Custom Exception:
 class DocumentPortalException(Exception):
     def __init__(self, error_message, error_details:sys):
@@ -24,6 +21,8 @@ class DocumentPortalException(Exception):
 
 # Testing Cell:
 if __name__ == "__main__":
+    # Initialize custom logger and pass the file name:
+    logger=CustomLogger().get_logger(__file__)
     try:
         a = 10/0
         print(a)
@@ -32,3 +31,4 @@ if __name__ == "__main__":
         app_excp=DocumentPortalException(e, sys)
         logger.error(app_excp)
         raise app_excp
+        
