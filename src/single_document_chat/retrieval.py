@@ -51,7 +51,7 @@ class ConversationalRAG:
 
     def _load_llm(self):
         try:
-            llm = ModelLoader().load_llm()
+            llm = ModelLoader().load_llms()
             self.log.info("LLM loaded successfully", class_name=llm.__class__.__name__)
             return llm
         except Exception as e:

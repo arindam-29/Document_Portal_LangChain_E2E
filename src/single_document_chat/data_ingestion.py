@@ -65,8 +65,3 @@ class SingleDocIngestor:
         except Exception as e:
             self.log.error("Retriever creation failed", error=str(e))
             raise DocumentPortalException("Error creating FAISS retriever", sys)
-
-
-if __name__ == "__main__":
-    dataingestion = SingleDocIngestor()
-    dataingestion.ingest_files(uploaded_files)
