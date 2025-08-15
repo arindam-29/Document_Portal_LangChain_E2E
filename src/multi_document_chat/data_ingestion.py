@@ -40,7 +40,7 @@ class DocumentIngestor:
             )
 
         except Exception as e:
-            CustomLogger().log_error(f"Error initializing DocumentIngestor:", error =str(e))
+            self.log.error(f"Error initializing DocumentIngestor:", error=str(e))
             raise DocumentPortalException("Failed to initialize DocumentIngestor", sys)
 
     def ingest_files(self, uploaded_files):

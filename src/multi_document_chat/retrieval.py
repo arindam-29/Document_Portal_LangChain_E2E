@@ -10,7 +10,7 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.prompts.chat import ChatPromptTemplate
-from langchain_core.output_parsers import StringOutputParser
+from langchain_core.output_parsers import StrOutputParser
 from langchain_core.messages import BaseMessage
 from typing import List, Optional, Dict, Any
 
@@ -28,7 +28,7 @@ class ConversationalRAG:
 
             self.llm = self._load_llm()
             self.contextualize_prompt: ChatPromptTemplate = PROMPT_REGISTRY[PromptType.CONTEXTUALIZE_QUESTION.value]
-            self.qa_prompt: ChatPromptTemplate = PROMPT_REGISTRY[PromptType.QA_PROMPT.value]
+            self.qa_prompt: ChatPromptTemplate = PROMPT_REGISTRY[PromptType.CONTEXT_QA.value]
 
             if retriever is None:
                 raise ValueError("Retriever cannot be None")
@@ -37,7 +37,7 @@ class ConversationalRAG:
             self.log.info("ConversationalRAG initialized", session_id=self.session_id)
 
         except Exception as e:
-            CustomLogger().log_error(f"Error initializing ConversationalRAG: {e}")
+            self.log.error(f"Error initializing ConversationalRAG: {e}")
             raise DocumentPortalException("Failed to initialize ConversationalRAG", sys)
 
     def load_retriever_from_faiss(self, index_path: str):
@@ -60,7 +60,7 @@ class ConversationalRAG:
             return self.retriever
 
         except Exception as e:
-            CustomLogger().log_error(f"Error loading retriever from FAISS: {e}")
+            self.log.error(f"Error loading retriever from FAISS: {e}")
             raise DocumentPortalException("Failed to load retriever from FAISS", sys)
 
     def invoke(self, user_input: str, chat_history: Optional[list[BaseMessage]] = None) -> str:
@@ -83,13 +83,13 @@ class ConversationalRAG:
             return answer
         
         except Exception as e:
-            CustomLogger().log_error(f"Error invoking ConversationalRAG: {e}")
+            self.log.error(f"Error invoking ConversationalRAG: {e}")
             raise DocumentPortalException("Failed to invoke ConversationalRAG", sys)
 
     def _load_llm(self):
         # Logic to load and return the LLM
         try:
-            llm = ModelLoader().load_llm()
+            llm = ModelLoader().load_llms()
             if not llm:
                 raise ValueError("Failed to load LLM")
             
@@ -97,7 +97,7 @@ class ConversationalRAG:
             return llm
         
         except Exception as e:
-            CustomLogger().log_error(f"Error loading LLM: {e}")
+            self.log.error(f"Error loading LLM: {e}")
             raise DocumentPortalException("Failed to load LLM", sys)
 
     @staticmethod
@@ -114,7 +114,7 @@ class ConversationalRAG:
                  }
                  | self.contextualize_prompt
                  | self.llm
-                 | StringOutputParser()
+                 | StrOutputParser()
             )
 
             retrieve_docs = question_rewriter | self.retriever | self._format_docs
@@ -127,11 +127,11 @@ class ConversationalRAG:
                 }
                 | self.qa_prompt
                 | self.llm
-                | StringOutputParser()
+                | StrOutputParser()
             )
 
             self.log.info("LCEL chain built successfully", session_id=self.session_id)
 
         except Exception as e:
-            CustomLogger().log_error(f"Error building LCEL chain: {e}")
+            self.log.error(f"Error building LCEL chain: {e}")
             raise DocumentPortalException("Failed to build LCEL chain", sys)
