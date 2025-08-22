@@ -15,4 +15,7 @@ streamlit
 langchain-core[tracing]
 pytest
 docx2txt
+fastapi
+uvicorn
+python-multipart
 -e .
