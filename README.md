@@ -40,7 +40,14 @@ git push
 
 # Cloning the repository
 git clone https://github.com/arindam-29/Agentic_Document_Portal_LangChain_E2E.git
+
+# Create new branch
+git checkout -b "<branch_name>"
+
+# Switch barch 
+git switch main 
 ```
+
 ## Minimum Requirements for the Project
 
 ### LLM Models
