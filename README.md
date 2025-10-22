@@ -1,8 +1,3 @@
-1. Documents Analysis: Creates a summary and metadata of the uploaded document.
-2. Documents Compare: Compare the content of two documents.
-3. Document(s) Question/Answer
-
-
 # Project Setup Guide
 
 ## Create Project Folder and Environment Setup
@@ -40,6 +35,13 @@ git push
 
 # Cloning the repository
 git clone https://github.com/arindam-29/Agentic_Document_Portal_LangChain_E2E.git
+
+# Create new branch
+git checkout -b "<branch_name>"
+
+# Switch barch 
+git switch main 
+
 ```
 ## Minimum Requirements for the Project
 
@@ -70,6 +72,5 @@ git clone https://github.com/arindam-29/Agentic_Document_Portal_LangChain_E2E.gi
 ### Gemini API Key
 - [Get your API Key](https://aistudio.google.com/apikey)  
 - [Gemini Documentation](https://ai.google.dev/gemini-api/docs/models)
-
 
 

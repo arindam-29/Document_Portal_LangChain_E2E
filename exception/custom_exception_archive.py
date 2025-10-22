@@ -1,34 +1,29 @@
 import sys
 import traceback
-from logger.custom_logger import CustomLogger
-
-# Define Custom Exception:
 class DocumentPortalException(Exception):
-    def __init__(self, error_message, error_details:sys):
-
-        _,_,exe_tb=error_details.exc_info()
-        self.file_name = exe_tb.tb_frame.f_code.co_filename 
-        self.line_num = exe_tb.tb_lineno
+    def __init__(self, error_message, error_details):
+        _, _, exc_tb = error_details.exc_info()
+        self.file_name = exc_tb.tb_frame.f_code.co_filename
+        self.lineno = exc_tb.tb_lineno
         self.error_message = str(error_message)
         self.traceback_str = ''.join(traceback.format_exception(*error_details.exc_info()))
-        
+
     def __str__(self):
         return f"""
-            Error File: [{self.file_name}], Line Number: [{self.line_num}]
-            Error Message: {self.error_message}
-            Error Traceback: {self.traceback_str}
-            """
+        Error in [{self.file_name}] at line [{self.lineno}]
+        Message: {self.error_message}
+        Traceback:
+        {self.traceback_str}
+        """
 
-# Testing Cell:
 if __name__ == "__main__":
-    # Initialize custom logger and pass the file name:
-    logger=CustomLogger().get_logger(__file__)
     try:
-        a = 10/0
-        print(a)
-
+        a = 1 / 0  # deliberate error
     except Exception as e:
-        app_excp=DocumentPortalException(e, sys)
-        logger.error(app_excp)
-        raise app_excp
-        
+        app_exc = DocumentPortalException(e, sys)
+        #logger.error(app_exc)  # log it to file
+        raise app_exc  # propagate with full traceback
+    # try:
+    #     a = int("abc")  # ValueError (inbuilt)
+    # except ValueError as e:
+    #     raise DocumentPortalException("Failed while processing document", e)
