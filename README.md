@@ -1,8 +1,3 @@
-1. Documents Analysis: Creates a summary and metadata of the uploaded document.
-2. Documents Compare: Compare the content of two documents.
-3. Document(s) Question/Answer
-
-
 # Project Setup Guide
 
 ## Create Project Folder and Environment Setup
@@ -46,8 +41,8 @@ git checkout -b "<branch_name>"
 
 # Switch barch 
 git switch main 
-```
 
+```
 ## Minimum Requirements for the Project
 
 ### LLM Models
@@ -77,6 +72,5 @@ git switch main
 ### Gemini API Key
 - [Get your API Key](https://aistudio.google.com/apikey)  
 - [Gemini Documentation](https://ai.google.dev/gemini-api/docs/models)
-
 
 

@@ -1,26 +1,23 @@
-from pydantic import BaseModel, Field, RootModel
-from typing import Optional, List, Dict, Any, Union
+from pydantic import BaseModel, RootModel
+from typing import List, Union
 from enum import Enum
 
-
-class LLMMetadata(BaseModel):
-    Summary: List[str] = Field(default_factory=list, description="Summary of the document")
+class Metadata(BaseModel):
+    Summary: List[str]
     Title: str
-    Author: str
-    DateCreated: str   
+    Author: List[str]
+    DateCreated: str
     LastModifiedDate: str
     Publisher: str
     Language: str
     PageCount: Union[int, str]  # Can be "Not Available"
     SentimentTone: str
-
 class ChangeFormat(BaseModel):
-    page: str
-    changes: str
+    Page: str
+    Changes: str
 
 class SummaryResponse(RootModel[list[ChangeFormat]]):
     pass
-
 class PromptType(str, Enum):
     DOCUMENT_ANALYSIS = "document_analysis"
     DOCUMENT_COMPARISON = "document_comparison"

@@ -1,23 +1,19 @@
 import importlib.metadata
-packages = [
-    "langchain",
-    "python-dotenv",
-    "ipykernel",
-    "langchain_groq",
-    "langchain_google_genai",
-    "langchain-community",
-    "faiss-cpu",
-    "structlog",
-    "PyMuPDF",
-    "pylint",
-    "langchain-core",
-    "pytest",
-    "streamlit",
-    "fastapi",
-    "uvicorn",
-    "python-multipart",
-    "docx2txt"
-]
+
+def read_requirements(file_path):
+    with open(file_path, 'r') as f:
+        requirements = f.readlines()
+    return [req.strip() for req in requirements if req.strip()]
+
+packages = read_requirements('requirements.txt')
+
+print("Packages from requirements.txt:",packages)
+
+# Remove "-e ." fom the list
+
+if "-e ." in packages:
+    packages.remove("-e .")
+
 for pkg in packages:
     try:
         version = importlib.metadata.version(pkg)

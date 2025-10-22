@@ -12,8 +12,8 @@ Analyze this document:
 """)
 
 # Prompt for document comparison
-document_compare_prompt = ChatPromptTemplate.from_template("""
-You will be provided the content of two PDFs. Your tasks are as follows:
+document_comparison_prompt = ChatPromptTemplate.from_template("""
+You will be provided with content from two PDFs. Your tasks are as follows:
 
 1. Compare the content in two PDFs
 2. Identify the difference in PDF and note down the page number 
@@ -54,7 +54,7 @@ context_qa_prompt = ChatPromptTemplate.from_messages([
 # Central dictionary to register prompts
 PROMPT_REGISTRY = {
     "document_analysis": document_analysis_prompt,
-    "document_compare": document_compare_prompt,
+    "document_comparison": document_comparison_prompt,
     "contextualize_question": contextualize_question_prompt,
     "context_qa": context_qa_prompt,
 }
