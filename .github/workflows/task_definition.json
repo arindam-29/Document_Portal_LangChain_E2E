@@ -1,5 +1,5 @@
 {
-  "family": "documentportaltd",
+  "family": "documentportal-task",        
   "networkMode": "awsvpc",
   "executionRoleArn": "arn:aws:iam::654654580264:role/ECSTaskExecutionRole",
   "requiresCompatibilities": ["FARGATE"],
@@ -7,7 +7,7 @@
   "memory": "8192",
   "containerDefinitions": [
     {
-      "name": "document-portal-container",
+      "name": "document-portal-ecr-repository",
       "image": "654654580264.dkr.ecr.us-east-1.amazonaws.com/documentportal",
       "cpu": 1024,
       "essential": true,
@@ -36,7 +36,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/documentportaltd",
+          "awslogs-group": "/ecs/documentportal",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs",
           "awslogs-create-group": "true"
