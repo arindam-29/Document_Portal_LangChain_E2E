@@ -74,3 +74,22 @@ git switch main
 - [Gemini Documentation](https://ai.google.dev/gemini-api/docs/models)
 
 
+## Running the App on AWS ECS 
+- **AWS Account** 
+- **AWS IAM User**
+    * Get your IAM User: AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
+    * Add them in Github secrets
+- **AWS Secret Manager add your API Keys**
+- **Create and setup AWS ECR**
+- **Create AWS ECS Cluster**
+    * Create ECS Service
+- **Pull the latest code from github**
+- **Update the files in .github/workflows folder with AWS details**
+- **Add the AWS IAM roles for the user, use 'incline_policy.json' file to create two incline policies**
+- **Go to AWS EC2 and Security Group and update inbound details**
+    * Click on Security Group and update inbound details: Type->Custom TCP, Port range->8080, Source->Anywhere IPV4 0.0.0.0/0
+- **Go to ECS Custer -> Service -> Task -> Public_IP**
+    * Open in any browser (https://Public_IP:8080)
+- **Go to AWS CloudWatch -> Log groups -> use running task id to view the log** 
+
+
